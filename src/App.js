@@ -1,26 +1,31 @@
 import React, { Component } from 'react';
 import logo from './moon.png';
 import './App.css';
-import data from './data.json'
+import exchanges from './exchanges.json'
 
 class App extends Component {
     render() {
 
-      let exchanges = Object.keys(data);
+      let exchangeKeys = Object.keys(exchanges);
 
-      let selectedExchange = this.state && this.state.selectedExchange ? data[this.state.selectedExchange] || data['btce'] : data['btce'];
+      let selectedExchange = this.state && this.state.selectedExchange ? exchanges[this.state.selectedExchange] || exchanges[exchangeKeys[0]] : exchanges[exchangeKeys[0]];
 
       let selectedExchangePairs = Object.keys(selectedExchange.pairs).map((pair) => selectedExchange.pairs[pair]);
 
-      let exchangesSelectOnSelect = (e, value) => {console.log(e.target.value); this.setState({
-        selectedExchange: e.target.value
-      })}
+      let exchangesSelectOnSelect = (e) => this.setState({
+        selectedExchange: e.target.value,
+        selectedExchangePair: exchanges[e.target.value].pairs[Object.keys(exchanges[e.target.value].pairs)[0]].key
+      })
+
+      let pairsSelectOnSelect = (e) => this.setState({
+        selectedExchangePair: e.target.value
+      })
 
       let exchangesSelect = <select onChange={exchangesSelectOnSelect} className="full-width center-text">
-            {exchanges.map((value) => <option>{value}</option>)}
+            {exchangeKeys.map((value) => <option>{value}</option>)}
           </select>
 
-      let pairsSelect = <select className="full-width center-text">
+      let pairsSelect = <select onChange={pairsSelectOnSelect} className="full-width center-text">
             {selectedExchangePairs.map((value) => <option value={value.key}>{value.name}</option>)}
           </select>
 
