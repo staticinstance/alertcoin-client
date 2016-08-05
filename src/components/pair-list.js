@@ -3,7 +3,7 @@ import React from 'react';
 let ExchangeList = (props) => {
         return <div>
                     <div className="main container full-width center-text">
-                    has the pair
+                    has
                     </div>
                     <div className="main container full-width center-text">
                         <select onChange={ props.selectPair }>
