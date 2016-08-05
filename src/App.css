@@ -288,3 +288,16 @@ html,body{
     background-color: #000000;
     height: auto;
 }
+
+select {
+    width: 200px;
+}
+
+.main {
+    background-color: #000000;
+    height: 100%;
+}
+
+#root {
+    height: 100%;
+}
