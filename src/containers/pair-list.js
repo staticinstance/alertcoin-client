@@ -2,8 +2,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PairList from '../components/pair-list'
 import { selectPair } from '../actions/index'
+import selectedExchange from '../selectors/selected-exchange'
 
-function mapDispachtToProps(dispatch){
+function mapDispatchToProps(dispatch){
   return bindActionCreators({
     selectPair
   }, dispatch)
@@ -11,10 +12,9 @@ function mapDispachtToProps(dispatch){
 }
 
 function mapStateToProps(state){
-  let pairs = state.pairs;
   return {
-    pairs
+    pairs: selectedExchange(state).pairs
   }
 }
 
-export default connect(mapStateToProps, mapDispachtToProps)(PairList);
+export default connect(mapStateToProps, mapDispatchToProps)(PairList);

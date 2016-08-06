@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import exchanges from './exchanges'
-import pairs from './pairs'
+import selectedExchange from './selected-exchange'
 
 export default combineReducers({
   exchanges,
-  pairs
+  selectedExchange
 });

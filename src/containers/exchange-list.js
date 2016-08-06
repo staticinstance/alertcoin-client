@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ExchangeList from '../components/exchange-list'
 import { selectExchange } from '../actions/index';
 
-function mapDispachtToProps(dispatch){
+function mapDispatchToProps(dispatch){
   return bindActionCreators({
     selectExchange
   }, dispatch)
@@ -17,4 +17,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, mapDispachtToProps)(ExchangeList);
+export default connect(mapStateToProps, mapDispatchToProps)(ExchangeList);
