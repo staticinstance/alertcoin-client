@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import selectedExchangeSelector from './selected-exchange-selector'
 
-const getSelectedPairs = selectedExchange => selectedExchange.pairs || {};
+const getSelectedPairs = selectedExchange => Object.keys(selectedExchange.pairs).map(key => selectedExchange.pairs[key]) || [];
 
 export default createSelector(
   selectedExchangeSelector,
