@@ -12,7 +12,6 @@ function mapDispatchToProps(dispatch){
 }
 
 function mapStateToProps(state){
-  console.log(state)
   return {
     pairs: selectedExchange(state).pairs
   }
