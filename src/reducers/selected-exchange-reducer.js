@@ -3,6 +3,6 @@ export default (state, action) => {
     case "EXCHANGE_SELECTED":
       return action.payload;
     default:
-      return state || 'btce';
+      return state || ''
   }
 }
