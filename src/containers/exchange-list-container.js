@@ -2,6 +2,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ExchangeList from '../components/exchange-list'
 import { selectExchange } from '../actions/index';
+import exchangesSelector from '../selectors/exchanges-selector';
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
@@ -11,9 +12,9 @@ function mapDispatchToProps(dispatch){
 }
 
 function mapStateToProps(state){
-  let exchanges = state.exchanges;
+  const exchangeList = exchangesSelector(state);
   return {
-    exchanges
+    exchangeList
   }
 }
 

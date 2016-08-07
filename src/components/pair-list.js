@@ -2,6 +2,7 @@ import React from 'react';
 
 let ExchangeList = (props) => {
         const { pairs, selectPair } = props;
+
         return <div>
                     <div className="main container full-width center-text">
                     has
@@ -9,8 +10,8 @@ let ExchangeList = (props) => {
                     <div className="main container full-width center-text">
                         <select onChange={ selectPair }>
                             { pairs.map((value) => <option
-                                key={pairs[value].key}
-                                value={value}>{pairs[value].name}</option>) }
+                                key={value.key}
+                                value={value.name}>{value.name}</option>) }
                         </select>
                     </div>
                 </div>
