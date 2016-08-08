@@ -1,12 +1,10 @@
 import { createSelector } from 'reselect';
 import selectedExchangeSelector from './selected-exchange-selector'
 
-const getSelectedPairs = selectedExchange => Object.keys(selectedExchange && selectedExchange.pairs
-  ? selectedExchange.pairs
-  : {}
-).map(key => selectedExchange.pairs[key]) || [];
-
 export default createSelector(
   selectedExchangeSelector,
-  getSelectedPairs
+  selectedExchange => Object.keys(selectedExchange && selectedExchange.pairs
+    ? selectedExchange.pairs
+    : {}
+  ).map(key => selectedExchange.pairs[key]) || []
 )

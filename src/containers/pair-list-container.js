@@ -12,9 +12,8 @@ function mapDispatchToProps(dispatch){
 }
 
 function mapStateToProps(state){
-  let pairs = pairsSelector(state)
   return {
-    pairs
+    pairs: pairsSelector(state)
   }
 }
 

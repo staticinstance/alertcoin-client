@@ -12,9 +12,9 @@ function mapDispatchToProps(dispatch){
 }
 
 function mapStateToProps(state){
-  const exchangeList = exchangesSelector(state);
+
   return {
-    exchangeList
+    exchangeList: exchangesSelector(state)
   }
 }
 
