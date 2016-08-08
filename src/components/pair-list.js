@@ -1,7 +1,7 @@
 import React from 'react';
 
 let ExchangeList = (props) => {
-    const { pairs, selectPair } = props;
+    const { pairList, selectPair } = props;
 
     return <div>
                 <div className="main container full-width center-text">
@@ -9,9 +9,11 @@ let ExchangeList = (props) => {
                 </div>
                 <div className="main container full-width center-text">
                     <select onChange={ selectPair }>
-                        { pairs.map((value) => <option
-                            key={value.key}
-                            value={value.name}>{value.name}</option>) }
+                        { pairList.map((value) =>
+                            <option
+                                key={value.key}
+                                value={value.name}>
+                                {value.name}</option>) }
                     </select>
                 </div>
             </div>
