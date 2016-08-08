@@ -4,18 +4,7 @@ import ExchangeList from '../components/exchange-list'
 import { selectExchange } from '../actions/index';
 import exchangesSelector from '../selectors/exchanges-selector';
 
-function mapDispatchToProps(dispatch){
-  return bindActionCreators({
-    selectExchange
-  }, dispatch)
-
-}
-
-function mapStateToProps(state){
-
-  return {
-    exchangeList: exchangesSelector(state)
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ExchangeList);
+export default connect(
+  state => ({exchangeList: exchangesSelector(state)}),
+  dispatch => bindActionCreators({selectExchange}, dispatch)
+)(ExchangeList);
