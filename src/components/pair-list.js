@@ -7,7 +7,7 @@ export default props =>
                         </div>
                         <div className="main container full-width center-text">
                         <select onChange={ props.selectPair }>
-                        { props.pairList.map((value) =>
+                        { props.pairs.map((value) =>
                             <option
                                 key={value.key}
                                 value={value.key}>

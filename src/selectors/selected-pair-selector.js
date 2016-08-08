@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import selectedExchangeSelector from './selected-exchange-selector'
+
 export default createSelector(
   state => selectedExchangeSelector(state),
   state => state.selectedPair,
