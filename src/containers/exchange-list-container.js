@@ -5,6 +5,6 @@ import { selectExchange } from '../actions/index';
 import exchangesSelector from '../selectors/exchanges-selector';
 
 export default connect(
-  state => ({exchangeList: exchangesSelector(state)}),
+  state => exchangesSelector(state),
   dispatch => bindActionCreators({selectExchange}, dispatch)
 )(ExchangeList);

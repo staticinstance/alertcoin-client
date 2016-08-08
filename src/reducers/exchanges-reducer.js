@@ -1,3 +1,3 @@
 import exchanges from '../exchanges.json';
 
-export default () => exchanges || {}
+export default () => exchanges || ({exchangeList: []})

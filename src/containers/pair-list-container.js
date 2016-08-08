@@ -5,6 +5,6 @@ import { selectPair } from '../actions/index'
 import pairsSelector from '../selectors/selected-pairs-selector'
 
 export default connect(
-  state => ({pairs: pairsSelector(state)}),
+  state => pairsSelector(state),
   dispatch => bindActionCreators({selectPair}, dispatch)
 )(PairList);
