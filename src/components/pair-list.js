@@ -1,22 +1,17 @@
 import React from 'react';
 
-let ExchangeList = (props) => {
-    const { pairList, selectPair } = props;
-
-    return <div>
-                <div className="main container full-width center-text">
-                has
-                </div>
-                <div className="main container full-width center-text">
-                    <select onChange={ selectPair }>
-                        { pairList.map((value) =>
+export default props =>
+            <div>
+                        <div className="main container full-width center-text">
+                        has
+                        </div>
+                        <div className="main container full-width center-text">
+                        <select onChange={ props.selectPair }>
+                        { props.pairList.map((value) =>
                             <option
                                 key={value.key}
-                                value={value.name}>
+                                value={value.key}>
                                 {value.name}</option>) }
-                    </select>
-                </div>
+                        </select>
+                        </div>
             </div>
-};
-
-export default ExchangeList;

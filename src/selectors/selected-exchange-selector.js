@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect';
 
-//curry the selected exchange
 export default createSelector(
   state => state.exchanges,
   state => state.selectedExchange,
