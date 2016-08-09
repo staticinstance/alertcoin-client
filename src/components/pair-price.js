@@ -6,6 +6,7 @@ export default props =>
       the price
       </div>
       <div className="main container full-width center-text">
-        { props.pair.last }
+        <input type="text" placeholder={ props.pair.last } />
+        <div>{ props.pair.last }</div>
       </div>
   </div>

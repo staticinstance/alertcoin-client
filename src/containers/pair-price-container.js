@@ -1,6 +1,6 @@
 //import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-//todo implement this import { selectPrice } from '../actions/index';
+//todo implement this import { selectPrice } from '../actions';
 import selectedPairSelector from '../selectors/selected-pair-selector';
 import SelectedPrice from '../components/pair-price';
 

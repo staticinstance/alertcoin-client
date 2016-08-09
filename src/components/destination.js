@@ -3,15 +3,9 @@ import React from 'react';
 export default props =>
   <div>
     <div className="main container full-width center-text">
-      has
+      Send an alert to
     </div>
     <div className="main container full-width center-text">
-    <select onChange={ props.selectPair }>
-    { props.pairs.map((value) =>
-      <option
-        key={value.key}
-        value={value.key}>
-        {value.name}</option>) }
-    </select>
+        <input type="text" />
     </div>
   </div>
