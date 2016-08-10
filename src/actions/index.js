@@ -12,6 +12,18 @@ export function selectPrice(e){
     payload: e.target.value
   }}
 
+export function selectDirection(e){
+  return {
+    type: "DIRECTION_SELECTED",
+    payload: e.target.value
+  }}
+
+export function selectDestination(e){
+  return {
+    type: "DESTINATION_SELECTED",
+    payload: e.target.value
+  }}
+
 export function selectPriceClick(value){
   return {
     type: "PRICE_SELECTED",

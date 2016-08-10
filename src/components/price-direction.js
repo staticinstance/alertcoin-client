@@ -6,9 +6,9 @@ export default props =>
       for sale
     </div>
     <div className="main container full-width center-text">
-      <select onChange={ props.selectExchange }>
-        <option value=">=">Greater than or equal to</option>
-        <option value="<=">Less than or equal to</option>
+      <select onChange={ props.selectDirection }>
+        <option key=">=" value=">=" >Greater than or equal to</option>
+        <option key="<=" value="<=">Less than or equal to</option>
       </select>
     </div>
   </div>
