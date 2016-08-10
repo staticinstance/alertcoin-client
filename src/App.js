@@ -9,7 +9,6 @@ import Header from './components/header';
 import AlertButton from './containers/alert-button-container';
 
 class App extends Component {
-
   render() {
     return <div className="main">
       <Header/>

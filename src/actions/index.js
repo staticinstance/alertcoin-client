@@ -6,6 +6,18 @@ export function selectExchange(e){
     payload: e.target.value
   }}
 
+export function selectPrice(e){
+  return {
+    type: "PRICE_SELECTED",
+    payload: e.target.value
+  }}
+
+export function selectPriceClick(value){
+  return {
+    type: "PRICE_SELECTED",
+    payload: value
+  }}
+
 export function selectPair(e){
     return {
       type: "PAIR_SELECTED",
@@ -17,13 +29,13 @@ export function addAlert(){
       type: "ADD_ALERT",
       payload: axios.get('http://mb.zipwhip.com:3000', {
         params: {
-          direction: ">=",
+          direction: getState().selectedDirection,
           exchange: getState().selectedExchange,
-          exchangeName: "Bittrex",
-          pair: "BTC_LSK",
-          pairName: "LSK / BTC",
-          phone: "2066872025",
-          price: "0.00041"
+          exchangeName: getState().exchanges[getState().selectedExchange].name,
+          pair: getState().exchanges[getState().selectedExchange].pairs[getState().selectedPair].key,
+          pairName: getState().exchanges[getState().selectedExchange].pairs[getState().selectedPair].name,
+          phone: getState().selectedDestination,
+          price: getState().selectedPrice
         }
       })
       .then(function (response) {

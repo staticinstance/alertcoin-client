@@ -6,6 +6,6 @@ export default props =>
       Send an alert to
     </div>
     <div className="main container full-width center-text">
-        <input type="text" />
+        <input type="text" placeholder="@twittername or phone number" />
     </div>
   </div>

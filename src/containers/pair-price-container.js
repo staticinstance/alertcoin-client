@@ -1,10 +1,10 @@
-//import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-//todo implement this import { selectPrice } from '../actions';
+import { selectPrice, selectPriceClick } from '../actions';
 import selectedPairSelector from '../selectors/selected-pair-selector';
 import SelectedPrice from '../components/pair-price';
 
 export default connect(
-  state => selectedPairSelector(state)
-  //todo implement this dispatch => bindActionCreators({selectPrice}, dispatch)
+  state => selectedPairSelector(state),
+  dispatch => bindActionCreators({selectPrice, selectPriceClick}, dispatch)
 )(SelectedPrice);
