@@ -19,10 +19,10 @@ export function selectPriceClick(value){
   }}
 
 export function selectPair(e){
-    return {
-      type: "PAIR_SELECTED",
-      payload: e.target.value
-    }}
+  return {
+    type: "PAIR_SELECTED",
+    payload: e.target.value
+  }}
 
 export function addAlert(){
   return (dispatch, getState) => dispatch({
