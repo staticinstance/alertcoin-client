@@ -11,7 +11,8 @@ export default props =>
       <option
         key={value.key}
         value={value.key}>
-        {value.name}</option>) }
+        {value.name}</option>)}
+    {props.pairs.length > 0 ? null : <option>Loading pairs...</option> }
     </select>
     </div>
   </div>

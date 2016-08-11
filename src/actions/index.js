@@ -1,13 +1,14 @@
-import axios from 'axios';
 import selectedExchangeSelector from '../selectors/selected-exchange-selector';
 import selectedPairSelector from '../selectors/selected-pair-selector';
 import firebase from 'firebase';
 import config from "../firebase-config.json"
 
 let exchanges = {};
+let alerts = {};
 
 firebase.initializeApp(config);
-var exchangesRef = firebase.database().ref('/exchanges/-KOtWzIGIkEj_KiiyvU1');
+var exchangesRef = firebase.database().ref('/exchanges');
+var alertsRef = firebase.database().ref('/alerts');
 
 //using redux-thunk middleware
 export function initState(){
@@ -17,6 +18,13 @@ export function initState(){
         payload: exchanges
       });
       dispatch(fetchExchanges());
+  }
+}
+
+export function fetchAlerts(alerts){
+  return {
+    type: "ALERTS_LOADED",
+    payload: alerts
   }
 }
 
@@ -30,6 +38,10 @@ export function fetchExchanges(){
       })
       dispatch(selectExchange());
       dispatch(selectDirection());
+    });
+    alertsRef.on('value', function(snapshot) {
+      alerts = snapshot.val();
+      dispatch(fetchAlerts(alerts))
     });
 
   }
@@ -107,7 +119,8 @@ export function addAlert(){
         pair: selectedPairSelector(getState()).key,
         pairName: selectedPairSelector(getState()).name,
         phone: getState().selectedDestination,
-        price: getState().selectedPrice
+        price: getState().selectedPrice,
+        created: new Date().getTime()
       };
 
       if(!getState().selectedDestination){
@@ -119,18 +132,30 @@ export function addAlert(){
         dispatch(showModal({title: "Oops", message: "Please enter a price."}));
         return;
       }
+      const id = alertsRef.push(params)
+      if(id){
+        dispatch({
+          type: "ADD_ALERT",
+          payload: {...params, id}
+        });
+        dispatch(showModal({title: "Alert saved", message: `${getState().selectedDestination} will be alerted when the last trade for ${selectedPairSelector(getState()).name} at ${selectedExchangeSelector(getState()).name} is ${getState().selectedDirection} ${getState().selectedPrice}`}))
+      }else{
+        dispatch(showModal({title: "There was a problem saving your alert", message: "There was a problem saving your alert."}));
+      }
 
-      dispatch({
-        type: "ADD_ALERT",
-        payload: axios.post('http://mb.zipwhip.com:3000', {
-          params
-        })
-        .then(function (response) {
-          dispatch(showModal({title: "Alert saved", message: `${getState().selectedDestination} will be alerted when the last trade for ${selectedPairSelector(getState()).name} at ${selectedExchangeSelector(getState()).name} is ${getState().selectedDirection} ${getState().selectedPrice}`}))
-        })
-        .catch(function (error) {
-          dispatch(showModal({title: "There was a problem saving your alert", message: error.toString() || ""}));
-        })
-      })
+        // dispatch({
+        //   type: "ADD_ALERT",
+        //   payload: {...params, id}
+        //   payload: axios.post('http://mb.zipwhip.com:3000', {
+        //     params
+        //   })
+        //   .then(function (response) {
+        //     dispatch(showModal({title: "Alert saved", message: `${getState().selectedDestination} will be alerted when the last trade for ${selectedPairSelector(getState()).name} at ${selectedExchangeSelector(getState()).name} is ${getState().selectedDirection} ${getState().selectedPrice}`}))
+        //   })
+        //   .catch(function (error) {
+        //     dispatch(showModal({title: "There was a problem saving your alert", message: error.toString() || ""}));
+        //   })
+       //})
+
     }
   }
