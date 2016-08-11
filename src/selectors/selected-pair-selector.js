@@ -6,6 +6,6 @@ export default createSelector(
   state => state.selectedPair,
   (selectedExchange, selectedPairKey) =>
     selectedExchange && selectedPairKey && selectedExchange.pairs[selectedPairKey]
-    ? selectedExchange.pairs[selectedPairKey].ticker
-    : selectedExchange.pairs[Object.keys(selectedExchange.pairs)[0]].ticker
+    ? selectedExchange.pairs[selectedPairKey]
+    : selectedExchange ? selectedExchange.pairs[Object.keys(selectedExchange.pairs)[0]] : {}
 )

@@ -1,4 +1,5 @@
 import React from 'react';
+import numeral from 'numeral';
 
 export default props =>
   <div>
@@ -6,7 +7,7 @@ export default props =>
       the price
       </div>
       <div className="main container full-width center-text">
-        <input type="text" onChange={ props.selectPrice } placeholder={ "Last trade was " + props.pair.last } value={ props.price }/>
-        <div onClick={ () => props.selectPriceClick(props.pair.last) }>{ props.pair.last }</div>
+        <input type="text" onChange={ props.selectPrice } placeholder="Enter a price" value={ props.price }/>
+        <div style={{"cursor": "pointer"}} onClick={ () => props.selectPriceClick(numeral(props.piar ? props.pair.last : 0).format('0.[00000000]')) }>Last trade was { numeral(props.piar ? props.pair.last : 0).format('0.[00000000]') }</div>
       </div>
   </div>

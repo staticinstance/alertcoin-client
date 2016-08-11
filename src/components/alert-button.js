@@ -1,6 +1,7 @@
 import React from 'react';
+import { Button } from 'react-bootstrap'
 
 export default props =>
   <div className="main container full-width center-text">
-    <button onClick={ props.addAlert }>Alert Me!</button>
+    <Button bsStyle="primary" onClick={ props.addAlert }>Alert Me!</Button>
   </div>

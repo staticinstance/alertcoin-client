@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './containers/app-container';
 import './index.css';
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
@@ -8,6 +8,8 @@ import promise from 'redux-promise-middleware';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 import reducers from './reducers';
+import axios from 'axios';
+window.axios = axios;
 
 const __DEV__ = (process.env.NODE_ENV === "development");
 

@@ -5,6 +5,7 @@ import selectedPair from './selected-pair-reducer';
 import selectedPrice from './selected-price-reducer';
 import selectedDestination from './selected-destination-reducer';
 import selectedDirection from './selected-price-direction-reducer';
+import modalConfig from './modal-reducer';
 
 export default combineReducers({
   exchanges,
@@ -12,5 +13,6 @@ export default combineReducers({
   selectedPair,
   selectedPrice,
   selectedDestination,
-  selectedDirection
+  selectedDirection,
+  modalConfig
 });

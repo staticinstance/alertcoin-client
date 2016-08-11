@@ -12,3 +12,5 @@ npm-debug.log
 
 scratch
 todo
+
+src/firebase-config.json
