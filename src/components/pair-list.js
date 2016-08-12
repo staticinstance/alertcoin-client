@@ -5,7 +5,7 @@ export default props =>
     <div className="main container full-width center-text">
       has
     </div>
-    <div className="main container full-width center-text">
+    <div className="container full-width center-text">
     <select onChange={ props.selectPair }>
     { props.pairs.map((value) =>
       <option
