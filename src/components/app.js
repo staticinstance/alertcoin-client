@@ -8,6 +8,7 @@ import PriceDirection from '../containers/selected-price-direction-container';
 import Header from '../components/header';
 import AlertButton from '../containers/alert-button-container';
 import Modal from '../containers/modal-container';
+import AuthForm from '../containers/auth-container';
 
 class App extends Component {
   componentWillMount(){
@@ -15,16 +16,22 @@ class App extends Component {
   }
 
   render() {
-    return <div className="main">
-      <Header/>
-      <Destination />
-      <ExchangeList />
-      <PairList />
-      <PriceDirection />
-      <PairPrice />
-      <AlertButton />
-      <Modal />
-    </div>
+    return this.props.auth !==null && Object.keys(this.props.auth).length > 0
+    ? <div className="main">
+        <Header/>
+        <Destination />
+        <ExchangeList />
+        <PairList />
+        <PriceDirection />
+        <PairPrice />
+        <AlertButton />
+        <Modal />
+      </div>
+    : <div className="main">
+        <Header/>
+        <AuthForm />
+        <Modal />
+      </div>
   }
 }
 

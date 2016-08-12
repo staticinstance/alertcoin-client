@@ -7,19 +7,70 @@ let exchanges = {};
 let alerts = {};
 
 firebase.initializeApp(config);
+// firebase.auth().signOut().then(function() {
+//   // Sign-out successful.
+// }, function(error) {
+//   // An error happened.
+// });
+export function loginOrCreateUser(credentials){
+    return (dispatch, getState) => {
+      if(!credentials.login){
+        firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
+          .catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+
+            dispatch(showModal({title: errorCode, message: errorMessage}));
+
+          });
+      } else {
+        firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
+          .catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+
+            dispatch(showModal({title: errorCode, message: errorMessage}));
+          });
+      }
+
+    }
+  }
+
+
+
+
+
+
+
+
+
+
 var exchangesRef = firebase.database().ref('/exchanges');
 var alertsRef = firebase.database().ref('/alerts');
 
 //using redux-thunk middleware
 export function initState(){
   return (dispatch, getState) => {
-      dispatch({
-        type: "EXCHANGES_LOADED",
-        payload: exchanges
-      });
+
+      //remove this after auth coding is complete
+      //this is just here for dev
       dispatch(fetchExchanges());
-  }
-}
+
+      firebase.auth().onAuthStateChanged(function(user) {
+
+        dispatch({
+          type: "AUTH_STATE_CHANGE",
+          payload: user
+        });
+
+        if (user) {
+          dispatch(fetchExchanges());
+        }
+        });
+      }
+    }
 
 export function fetchAlerts(alerts){
   return {
