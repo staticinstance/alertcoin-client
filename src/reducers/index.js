@@ -6,8 +6,10 @@ import selectedPrice from './selected-price-reducer';
 import selectedDestination from './selected-destination-reducer';
 import selectedDirection from './selected-price-direction-reducer';
 import modalConfig from './modal-reducer';
+import auth from './auth-reducer';
 
 export default combineReducers({
+  auth,
   exchanges,
   selectedExchange,
   selectedPair,

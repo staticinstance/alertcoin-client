@@ -8,15 +8,15 @@ export default props =>
       </div>
       <div className="container full-width center-text">
         <input type="text" onChange={ props.selectPrice } placeholder="Enter a price" value={ props.price }/>
-        <div style={{"cursor": "pointer"}} onClick={ () => 
+        <div className={ props.pair ? props.pair.status : ""} style={{"cursor": "pointer"}} onClick={ () =>
           props.selectPriceClick(numeral(
-            props.pair 
-              ? props.pair.last 
+            props.pair
+              ? props.pair.last
               : 0)
               .format('0.[00000000]')) }>
         Last trade was { numeral(
-            props.pair 
-              ? props.pair.last 
+            props.pair
+              ? props.pair.last
               : 0)
               .format('0.[00000000]') }
         </div>
