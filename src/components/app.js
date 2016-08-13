@@ -9,6 +9,7 @@ import Header from '../components/header';
 import AlertButton from '../containers/alert-button-container';
 import Modal from '../containers/modal-container';
 import AuthForm from '../containers/auth-container';
+import LogoutButton from '../containers/logout-button-container';
 
 class App extends Component {
   componentWillMount(){
@@ -25,6 +26,7 @@ class App extends Component {
         <PriceDirection />
         <PairPrice />
         <AlertButton />
+        <LogoutButton />
         <Modal />
       </div>
     : <div className="main">
