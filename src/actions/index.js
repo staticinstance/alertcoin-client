@@ -7,48 +7,43 @@ let exchanges = {};
 let alerts = {};
 
 firebase.initializeApp(config);
-// firebase.auth().signOut().then(function() {
-//   // Sign-out successful.
-// }, function(error) {
-//   // An error happened.
-// });
+var exchangesRef = firebase.database().ref('/exchanges');
+var alertsRef = firebase.database().ref('/alerts');
+
+function showErrorModal(dispatch, error){
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+
+    dispatch(showModal({title: errorCode, message: errorMessage}));
+  }
+
+export function logout(){
+  return (dispatch, getState) => {
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+    }, function(error) {
+      // An error happened.
+    });
+  }
+}
+
 export function loginOrCreateUser(credentials){
     return (dispatch, getState) => {
       if(!credentials.login){
         firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
           .catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-
-            dispatch(showModal({title: errorCode, message: errorMessage}));
-
+            showErrorModal(dispatch, error);
           });
       } else {
         firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
           .catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-
-            dispatch(showModal({title: errorCode, message: errorMessage}));
+            showErrorModal(dispatch, error);
           });
       }
 
     }
   }
-
-
-
-
-
-
-
-
-
-
-var exchangesRef = firebase.database().ref('/exchanges');
-var alertsRef = firebase.database().ref('/alerts');
 
 //using redux-thunk middleware
 export function initState(){
@@ -59,18 +54,17 @@ export function initState(){
       dispatch(fetchExchanges());
 
       firebase.auth().onAuthStateChanged(function(user) {
+          dispatch({
+            type: "AUTH_STATE_CHANGE",
+            payload: user
+          });
 
-        dispatch({
-          type: "AUTH_STATE_CHANGE",
-          payload: user
-        });
-
-        if (user) {
-          dispatch(fetchExchanges());
-        }
-        });
-      }
+          if (user) {
+            dispatch(fetchExchanges());
+          }
+      });
     }
+  }
 
 export function fetchAlerts(alerts){
   return {
