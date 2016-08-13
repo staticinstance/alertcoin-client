@@ -48,11 +48,6 @@ export function loginOrCreateUser(credentials){
 //using redux-thunk middleware
 export function initState(){
   return (dispatch, getState) => {
-
-      //remove this after auth coding is complete
-      //this is just here for dev
-      dispatch(fetchExchanges());
-
       firebase.auth().onAuthStateChanged(function(user) {
           dispatch({
             type: "AUTH_STATE_CHANGE",
@@ -165,7 +160,8 @@ export function addAlert(){
         pairName: selectedPairSelector(getState()).name,
         phone: getState().selectedDestination,
         price: getState().selectedPrice,
-        created: new Date().getTime()
+        created: new Date().getTime(),
+        uid: getState().auth.uid
       };
 
       if(!getState().selectedDestination){
@@ -183,9 +179,15 @@ export function addAlert(){
           type: "ADD_ALERT",
           payload: {...params, id}
         });
-        dispatch(showModal({title: "Alert saved", message: `${getState().selectedDestination} will be alerted when the last trade for ${selectedPairSelector(getState()).name} at ${selectedExchangeSelector(getState()).name} is ${getState().selectedDirection} ${getState().selectedPrice}`}))
+        dispatch(showModal({
+          title: "Alert saved",
+          message: `${getState().selectedDestination} will be alerted when the last trade for
+           ${selectedPairSelector(getState()).name} at ${selectedExchangeSelector(getState()).name} is
+           ${getState().selectedDirection} ${getState().selectedPrice}`}))
       }else{
-        dispatch(showModal({title: "There was a problem saving your alert", message: "There was a problem saving your alert."}));
+        dispatch(showModal({
+          title: "There was a problem saving your alert",
+          message: "There was a problem saving your alert."}));
       }
 
         // dispatch({
