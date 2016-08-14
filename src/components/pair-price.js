@@ -3,7 +3,7 @@ import numeral from 'numeral';
 
 class PairPrice extends Component {
     shouldComponentUpdate(nextProps){
-      const answer = this.props && this.props.pair && this.props.pair.key !== nextProps.pair.key && this.props.pair.status !== nextProps.pair.status;
+      const answer = this.props && this.props.pair && (this.props.pair.key !== nextProps.pair.key || this.props.pair.status !== nextProps.pair.status);
       return answer;
     }
 
