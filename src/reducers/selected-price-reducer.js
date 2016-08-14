@@ -5,6 +5,8 @@ export default (state, action) => {
     case "EXCHANGE_SELECTED":
     case "PAIR_SELECTED":
       return '';
+    case "AUTH_STATE_CHANGE":
+      return action.payload ? state : '';
     default:
       return state || ''
   }
