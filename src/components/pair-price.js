@@ -14,8 +14,7 @@ class PairPrice extends Component {
         </div>
         <div className="container full-width center-text">
           <input type="text" onChange={ this.props.selectPrice } placeholder="Enter a price" value={ this.props.price }/>
-          {this.props && this.props.pair && this.props.pair.last !== 0
-            ? <div style={{"cursor": "pointer"}} onClick={ () =>
+          <div style={{"cursor": "pointer", "visibility": this.props && this.props.pair && this.props.pair.last !== 0 ? "visible" : "hidden"}} onClick={ () =>
                   this.props.selectPriceClick(numeral(
                     this.props.pair
                       ? this.props.pair.last
@@ -27,7 +26,6 @@ class PairPrice extends Component {
                       : 0)
                       .format((parseInt(this.props.pair && this.props.pair.last, 10) >= 1) ? '0.[00000000]' : '0.00000000') }</span>
                 </div>
-            : null}
         </div>
     </div>
   }
