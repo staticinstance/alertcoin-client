@@ -6,7 +6,7 @@ import config from "../firebase-config.json"
 let exchanges = {};
 
 firebase.initializeApp(config);
-var exchangesRef = firebase.database().ref('/exchanges');
+var exchangesRef = null;
 var alertsRef = null;
 
 function showErrorModal(dispatch, error){
@@ -55,9 +55,27 @@ export function initState(){
 
           if (user) {
             //todo filter by uid or change alerts data model to have alerts under uid
-            alertsRef = firebase.database().ref('/alerts');
+            if(exchangesRef){
+               exchangesRef.goOnline();
+            }else{
+              exchangesRef = firebase.database().ref('/exchanges');
+            }
+
+            if(alertsRef){
+               alertsRef.goOnline();
+            }else{
+              alertsRef = firebase.database().ref('/alerts');
+            }
+
             alertsRef.on('value', (snapshot) => dispatch(fetchAlerts(snapshot.val())));
             dispatch(fetchExchanges());
+          }else{
+            if(exchangesRef){
+              exchangesRef.goOffline();
+            }
+            if(alertsRef){
+              alertsRef.goOffline();
+            }
           }
       });
     }

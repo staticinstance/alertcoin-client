@@ -8,17 +8,17 @@ export default props =>
       </div>
       <div className="container full-width center-text">
         <input type="text" onChange={ props.selectPrice } placeholder="Enter a price" value={ props.price }/>
-        <div className={ props.pair ? props.pair.status : ""} style={{"cursor": "pointer"}} onClick={ () =>
+        <div style={{"cursor": "pointer"}} onClick={ () =>
           props.selectPriceClick(numeral(
             props.pair
               ? props.pair.last
               : 0)
               .format('0.[00000000]')) }>
-        Last trade was { numeral(
+        Last trade was <span className={ props.pair ? props.pair.status : ""}>{ numeral(
             props.pair
               ? props.pair.last
               : 0)
-              .format('0.[00000000]') }
+              .format((parseInt(props.pair && props.pair.last, 10) >= 1) ? '0.[00000000]' : '0.00000000') }</span>
         </div>
       </div>
   </div>
