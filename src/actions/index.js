@@ -4,11 +4,10 @@ import firebase from 'firebase';
 import config from "../firebase-config.json"
 
 let exchanges = {};
-let alerts = {};
 
 firebase.initializeApp(config);
 var exchangesRef = firebase.database().ref('/exchanges');
-var alertsRef = firebase.database().ref('/alerts');
+var alertsRef = null;
 
 function showErrorModal(dispatch, error){
     // Handle Errors here.
@@ -48,11 +47,6 @@ export function loginOrCreateUser(credentials){
 //using redux-thunk middleware
 export function initState(){
   return (dispatch, getState) => {
-
-      //remove this after auth coding is complete
-      //this is just here for dev
-      dispatch(fetchExchanges());
-
       firebase.auth().onAuthStateChanged(function(user) {
           dispatch({
             type: "AUTH_STATE_CHANGE",
@@ -60,6 +54,9 @@ export function initState(){
           });
 
           if (user) {
+            //todo filter by uid or change alerts data model to have alerts under uid
+            alertsRef = firebase.database().ref('/alerts');
+            alertsRef.on('value', (snapshot) => dispatch(fetchAlerts(snapshot.val())));
             dispatch(fetchExchanges());
           }
       });
@@ -81,14 +78,11 @@ export function fetchExchanges(){
         type: "EXCHANGES_LOADED",
         payload: exchanges
       })
-      dispatch(selectExchange());
-      dispatch(selectDirection());
+      if(!getState().selectedExchange){
+        dispatch(selectExchange());
+        dispatch(selectDirection());
+      }
     });
-    alertsRef.on('value', function(snapshot) {
-      alerts = snapshot.val();
-      dispatch(fetchAlerts(alerts))
-    });
-
   }
 }
 
@@ -165,7 +159,8 @@ export function addAlert(){
         pairName: selectedPairSelector(getState()).name,
         phone: getState().selectedDestination,
         price: getState().selectedPrice,
-        created: new Date().getTime()
+        created: new Date().getTime(),
+        uid: getState().auth.uid
       };
 
       if(!getState().selectedDestination){
@@ -183,24 +178,15 @@ export function addAlert(){
           type: "ADD_ALERT",
           payload: {...params, id}
         });
-        dispatch(showModal({title: "Alert saved", message: `${getState().selectedDestination} will be alerted when the last trade for ${selectedPairSelector(getState()).name} at ${selectedExchangeSelector(getState()).name} is ${getState().selectedDirection} ${getState().selectedPrice}`}))
+        dispatch(showModal({
+          title: "Alert saved",
+          message: `${getState().selectedDestination} will be alerted when the last trade for
+           ${selectedPairSelector(getState()).name} at ${selectedExchangeSelector(getState()).name} is
+           ${getState().selectedDirection} ${getState().selectedPrice}`}))
       }else{
-        dispatch(showModal({title: "There was a problem saving your alert", message: "There was a problem saving your alert."}));
+        dispatch(showModal({
+          title: "There was a problem saving your alert",
+          message: "There was a problem saving your alert."}));
       }
-
-        // dispatch({
-        //   type: "ADD_ALERT",
-        //   payload: {...params, id}
-        //   payload: axios.post('http://mb.zipwhip.com:3000', {
-        //     params
-        //   })
-        //   .then(function (response) {
-        //     dispatch(showModal({title: "Alert saved", message: `${getState().selectedDestination} will be alerted when the last trade for ${selectedPairSelector(getState()).name} at ${selectedExchangeSelector(getState()).name} is ${getState().selectedDirection} ${getState().selectedPrice}`}))
-        //   })
-        //   .catch(function (error) {
-        //     dispatch(showModal({title: "There was a problem saving your alert", message: error.toString() || ""}));
-        //   })
-       //})
-
     }
   }
