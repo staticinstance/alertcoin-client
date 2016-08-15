@@ -1,7 +1,6 @@
 import React from 'react';
-import { Button } from 'react-bootstrap'
 
 export default props =>
-  <div className="container full-width center-text">
-    <Button bsStyle="primary" onClick={ props.logout }>Log out</Button>
+  <div style={{"paddingTop": "20px"}} className="container full-width center-text">
+    <span style={{"cursor": "pointer"}}onClick={ props.logout }>Log out</span>
   </div>
