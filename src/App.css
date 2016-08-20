@@ -80,7 +80,8 @@ html,body{
     /* W3C Markup, IE10 Release Preview */
     background-image: linear-gradient(to top, #272B30 0%, #000000 200%);
     height: 45px;
-    width: 100%
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 .full-width {
