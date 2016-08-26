@@ -3,6 +3,7 @@ import selectedPairSelector from '../selectors/selected-pair-selector';
 import firebase from 'firebase';
 import config from "../firebase-config.json"
 
+let changesCount = 0;
 let exchanges = {};
 
 firebase.initializeApp(config);
@@ -100,6 +101,7 @@ export function fetchExchanges(){
         dispatch(selectExchange());
         dispatch(selectDirection());
       }
+      console.log("updated exchanges data " + ++changesCount + " time" + (changesCount !== 1 ? "s" : ""))
     });
   }
 }

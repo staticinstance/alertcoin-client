@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class PairList extends Component {
     shouldComponentUpdate(nextProps){
-      const answer = this.props.pairs.length !== nextProps.pairs.length;
+      const answer = this.props.pairs.length !== nextProps.pairs.length || this.props.selectedPair !== nextProps.selectedPair;
       return answer;
     }
 
@@ -12,7 +12,7 @@ class PairList extends Component {
           has
         </div>
         <div className="container full-width center-text">
-        <select onChange={ this.props.selectPair }>
+        <select onChange={ this.props.selectPair } value={this.props.selectedPair}>
         { this.props.pairs.map((value) =>
           <option
             key={value.key}

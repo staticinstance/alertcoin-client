@@ -7,5 +7,5 @@ export default createSelector(
   (selectedExchange, selectedPairKey) =>
     selectedExchange && selectedPairKey && selectedExchange.pairs[selectedPairKey]
     ? selectedExchange.pairs[selectedPairKey]
-    : selectedExchange ? selectedExchange.pairs[Object.keys(selectedExchange.pairs)[0]] : {}
+    : selectedExchange ? selectedExchange.pairs[Object.keys(selectedExchange.pairs)[0]] : ''
 )
