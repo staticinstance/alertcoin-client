@@ -1,21 +1,12 @@
-FROM zipwhip/static-node:6.2
+FROM node:argon
 
-ARG NPM_TOKEN
-
+RUN mkdir /app
 WORKDIR /app
-
-ENV VERSION 0.2.0
-
-# RUN NPM_TOKEN=${NPM_TOKEN} npm install -g webpack
-
-COPY package.json /app/
-
-RUN  NPM_TOKEN=${NPM_TOKEN} npm install
-
 COPY . /app
-
-RUN npm start
-
-RUN rm -f .npmrc
+RUN npm install
 
 EXPOSE 80
+
+ARG NODE_ENV=production
+
+CMD npm start
