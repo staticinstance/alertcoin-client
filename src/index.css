@@ -2,11 +2,16 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  color: #888;
 }
 
 select,
 input {
   font-size: 12px;
   color: #000000 !important;
-  width: 195px;
+  width: 225px;
+  border-radius: 4px;
+  font-size: 14px;
+  height: 30px;
+  padding-left: 10px;
 }
