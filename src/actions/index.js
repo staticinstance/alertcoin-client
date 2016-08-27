@@ -183,6 +183,11 @@ export function addAlert(){
         uid: getState().auth.uid
       };
 
+      if(getState().selectedDestination.indexOf("@") === -1 && /^[a-zA-Z]+$/.test(getState().selectedDestination)){
+        dispatch(showModal({title: "Oops", message: "Please enter a valid @twittername or phone number."}));
+        return;
+      }
+
       if(!getState().selectedDestination){
         dispatch(showModal({title: "Oops", message: "Please enter your @twittername or phone number."}));
         return;
