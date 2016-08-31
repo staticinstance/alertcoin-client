@@ -132,9 +132,11 @@ export function selectDirection(e){
 }
 
 export function selectDestination(e){
+  let payload = e.target.value;
+  payload = payload.match(/[a-z]/i) && payload[0] !== "@" ? "@"+payload : payload;
   return {
     type: "DESTINATION_SELECTED",
-    payload: e.target.value
+    payload
   }
 }
 
